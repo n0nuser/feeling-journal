@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Welcome! {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-content-container container-fluid px-4">
+    <div class="jumbotron jumbotron-fluid mt-3">
+        <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
+        <p class="lead">This is a journal where you can write how you feel and keep track of your feelings.</p>
+        <hr class="my-4">
+        <p>You can start by adding a journal entry or some thought.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_add' %}" role="button">Journal</a>
+            <a class="btn btn-primary btn-lg mb-2" href="{% url 'thought_add' %}" role="button">Thought</a>
+        </p>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

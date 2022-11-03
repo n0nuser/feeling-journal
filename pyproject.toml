@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "Feeling Journal"
+version = "0.1.0"
+description = "Feeling Journal Web"
+authors = ["Pablo González Rubio <gonzrubio.pablo@gmail.com>"]
+repository = "https://github.com/n0nuser/feeling-journal"
+license = ""
+packages = [
+    { include = "feeling/"},
+    { include = "feeling/**/*.py" },
+]
+
+[tool.poetry.dependencies]
+Django = ">=4.0,<5.0"
+python = "^3.8"
+Unipath = "^1.1"
+asgiref = "^3.5.0"
+autopep8 = "^1.6.0"
+gunicorn = "^20.1.0"
+uvicorn = "^0.17.6"
+django-crispy-forms = "^1.14.0"
+django-environ = "^0.9.0"
+django-import-export = "^2.7.1"
+django-minify-html = "^1.3.0"
+whitenoise = "^6.0.0"
+django-tempus-dominus = "^5.1.2.17"
+django-debug-toolbar = "^3.7.0"
+weasyprint = "^57.0"
+psycopg2-binary = "^2.9.5"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^22.3.0", allow-prereleases = true}
+pre-commit = "^2.19.0"
+flake8 = "^4.0.1"
+
+[tool.black]
+line-length = 119
+
+[tool.wemake-python-styleguide]
+max-line-length = 119
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

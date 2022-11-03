@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link href="{% static 'css/report-pdf.css' %}" rel="stylesheet">
+    <title>Thought Entries</title>
+    <meta name="description" content="Invoice demo sample">
+  </head>
+
+  <body>
+    <h1>Thought Entries</h1>
+
+    <dl id="informations">
+      {% comment %} <dt>Invoice number</dt>
+      <dd>12345</dd> {% endcomment %}
+      <dt>Date</dt>
+      <dd>{% now "d/m/Y H:i:s" %}</dd>
+    </dl>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Created At</th>
+          <th>Associated Journal</th>
+          <th>Thought</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in thought %}
+        <tr>
+          {% if entry.0 %}
+          <td>{{ entry.0 }}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
+          
+          {% if entry.1 %}
+          <td>{{ entry.1|date:"d/m/Y H:i:s" }}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
+
+          {% if entry.2 %}
+          <td>{{ entry.2 }}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
+
+          {% if entry.3 %}
+          <td>{{ entry.3 }}</td>
+          {% else %}
+          <td></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+thought.id | thougth.created_at | thougth.journal | thougth.thought
+{% for entry in thought %}
+{{ entry.id }}|{{ entry.created_at }}|{{ entry.journal }}|{{ entry.thought }}
+{% endfor %}

@@ -1,0 +1,61 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: django-feeling-uvicorn
+    volumes:
+      - static_volume:/var/www/app/staticfiles
+    restart: always
+    expose:
+      - 8000
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      main:
+        aliases:
+          - web
+
+  postgres:
+    image: postgres
+    container_name: django-monitor-postgres
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_DB=$POSTGRES_NAME
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    networks:
+      main:
+        aliases:
+          - postgres
+
+  nginx:
+    build: ./nginx
+    container_name: django-feeling-nginx
+    restart: always
+    volumes:
+      - static_volume:/var/www/app/staticfiles
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - web
+    networks:
+      main:
+        aliases:
+          - nginx
+    deploy:
+      mode: replicated
+      replicas: 1
+
+volumes:
+  postgres_data:
+  static_volume:
+
+networks:
+  main:

@@ -1,0 +1,55 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Añadir {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-content-container container-fluid px-4">
+  <!-- Page Header -->
+  <div class="page-header row no-gutters py-4">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+      <span class="text-uppercase page-subtitle">Feeling Journal</span>
+      <h3 class="page-title">Register</h3>
+    </div>
+  </div>
+  <!-- End Page Header -->
+  <div class="row">
+    <!-- Register Form -->
+    <div class="col-lg-4 mb-4">
+      <div class="card card-small mb-4">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item p-3">
+            <div class="row">
+              <div class="col">
+                {% if success %}
+                <p>
+                  Please <a href={% url 'login' %}>authenticate</a> using the new account.
+                </p>
+                {% else %}
+                
+                <form role="form" method="post" action="" class="pt-3">
+                  {% csrf_token %}
+                  {{ form | crispy }}
+                  <button type="submit" name="register" class="btn btn-accent">Register</button>
+                  &nbsp; &nbsp;
+                  Have an account? <a href={% url 'login' %} class="text-primary">Login</a>
+                </form>
+
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End Default Light Table -->
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

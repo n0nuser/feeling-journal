@@ -1,0 +1,134 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Journal {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-content-container container-fluid px-4">
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Overview</span>
+            <h3 class="page-title">Journal entries</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+
+    <form action="" method="get">
+        <div class="row">
+            <div class="col-2">
+                <div id="div_date" class="form-group">
+                    <label for="date" class="">
+                        Filter by Period of Time
+                    </label>
+                    <div>
+                        <select name="date" class="form-control" id="date">
+                            <option value="all" selected="">All</option>
+                            <option value="week">One Week</option>
+                            <option value="midmonth">Two Weeks</option>
+                            <option value="month">One Month</option>
+                            <option value="year">One Year</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="status">&nbsp;</label>
+                    <div>
+                        <button type="submit" class="btn btn-accent">Apply Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Default Light Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card card-small mb-4">
+                <div class="border-bottom">
+                    <div class="row">
+                        <div class="col d-flex flex-row m-2">
+                            <a href="{% url 'journal_add' %}"><button type="button" class="btn btn-primary">Add Entry</button></a>
+                            <form method="get" class="ml-2">
+                                <input name="q" class="form-control" type="text" placeholder="Search...">
+                            </form>
+                        </div>
+                        <div class="col">
+                            {% include 'includes/dropdown_pagination.html' %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-0 pb-3 text-center">
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-sm mb-0 table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th scope="col" class="border-0">Ocurred At</th>
+                                    <th scope="col" class="border-0">Number of Times</th>
+                                    <th scope="col" class="border-0">Situation Emotion</th>
+                                    <th scope="col" class="border-0">Afterwards Feeling</th>
+                                    <th scope="col" class="border-0" colspan="2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Item -->
+                                {% if page_obj is not True %}
+                                {% for journal in page_obj %}
+                                <tr>
+                                    {% if journal.ocurred_at %}
+                                    <td><span class="font-weight-bold">{{ journal.ocurred_at|date:"d/m/Y H:i:s" }}</span></td>
+                                    {% else %}
+                                    <td><span class="font-weight-normal"></span></td>
+                                    {% endif %}
+
+                                    {% if journal.number_of_times %}
+                                    <td><span class="font-weight-normal">{{ journal.number_of_times }}</span></td>
+                                    {% else %}
+                                    <td><span class="font-weight-normal"></span></td>
+                                    {% endif %}
+
+                                    {% if journal.situation_emotion %}
+                                    <td><span class="font-weight-normal">{{ journal.situation_emotion }}</span></td>
+                                    {% else %}
+                                    <td><span class="font-weight-normal"></span></td>
+                                    {% endif %}
+
+                                    {% if journal.afterwards_feeling %}
+                                    <td><span class="font-weight-normal">{{ journal.afterwards_feeling }}</span></td>
+                                    {% else %}
+                                    <td><span class="font-weight-normal"></span></td>
+                                    {% endif %}
+                                    <td>
+                                        <a href="{% url 'journal_edit' journal.id %}"><button type="button" class="mb-2 btn btn-sm btn-primary mr-2">Edit</button></a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'journal_del' journal.id %}"><button type="button" class="mb-2 btn btn-sm btn-danger mr-2">Delete</button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Default Light Table -->
+
+    {% include 'includes/pagination.html' %}
+
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,74 @@
+{% load static %}
+<div class="main-navbar sticky-top bg-white">
+  <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+    <div class="input-group input-group-seamless ml-3"></div>
+
+    {% if user.is_authenticated %}
+    <li class="nav-item dropdown">
+      <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <div class="nav-link-icon__wrapper">
+          <i class="material-icons">&#xE5D2;</i>
+        </div>
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-small">
+        <a class="dropdown-item" href="{% url 'home' %}">
+          <i class="material-icons text-primary">home</i>
+          <span>Dashboard</span>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="{% url 'journal_list' %}">
+          <i class="material-icons text-primary">edit_note</i>
+          <span>Journal</span>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="{% url 'thought_list' %}">
+          <i class="material-icons text-primary">question_mark</i>
+          <span>Thought</span>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="{% url 'statistics' %}">
+          <i class="material-icons text-primary">insights</i>
+          <span>Statistics</span>
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="{% url 'export' %}">
+          <i class="material-icons text-primary">file_download</i>
+          <span>Export</span>
+        </a>
+      </div>
+    </li>
+
+    <ul class="navbar-nav border-left flex-row ">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button"
+          aria-haspopup="true" aria-expanded="false">
+          <!-- <img class="user-avatar rounded-circle mr-2" src="/static/img/avatars/avatar.jpg" alt="User Avatar"> -->
+          <img class="user-avatar rounded-circle mr-2" src="{% static 'img/avatars/avatar.jpg' %}" alt="User Avatar">
+          <span class="d-none d-md-inline-block">
+            {{ request.user.username }}
+          </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-small">
+          <a class="dropdown-item" href={% url 'profile' %}>
+            <i class="material-icons">&#xE7FD;</i> Profile</a>
+          
+            <div class="dropdown-divider"></div>
+          
+          <a class="dropdown-item text-danger" href={% url 'logout' %}>
+            <i class="material-icons text-danger">&#xE879;</i> Logout </a>
+        </div>
+      </li>
+    </ul>
+    {% endif %}
+  </nav>
+</div>

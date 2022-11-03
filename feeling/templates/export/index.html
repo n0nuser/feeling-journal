@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{ agent.name }}{% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-content-container container-fluid px-4">
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <h3 class="page-title">Export</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+
+    <div class="card mt-3">
+        <h4 class="m-3">Journal</h4>
+        <div class="row mx-1">
+            <div class="col-lg col-md-6 col-sm-6">
+                <a href="{% url 'journal_csv' %}" target="_blank" role="button">
+                    <div class="stats-small--1 mb-3">
+                        <div class="p-3 d-flex btn btn-primary">
+                            <div class="d-flex flex-column m-auto">
+                                <div class="stats-small__data text-center">
+                                    <h4 class="count text-white">CSV</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg col-md-6 col-sm-6">
+                <a href="{% url 'journal_pdf' %}" target="_blank" role="button">
+                    <div class="stats-small--1 mb-3">
+                        <div class="p-3 d-flex btn btn-primary">
+                            <div class="d-flex flex-column m-auto">
+                                <div class="stats-small__data text-center">
+                                    <h4 class="count text-white">PDF</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card my-3">
+        <h4 class="m-3">Thoughts</h4>
+        <div class="row mx-1">
+            <div class="col-lg col-md-6 col-sm-6">
+                <a href="{% url 'thought_csv' %}" target="_blank" role="button">
+                    <div class="stats-small--1 mb-3">
+                        <div class="p-3 d-flex btn btn-primary">
+                            <div class="d-flex flex-column m-auto">
+                                <div class="stats-small__data text-center">
+                                    <h4 class="count text-white">CSV</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg col-md-6 col-sm-6">
+                <a href="{% url 'thought_pdf' %}" target="_blank" role="button">
+                    <div class="stats-small--1 mb-3">
+                        <div class="p-3 d-flex btn btn-primary">
+                            <div class="d-flex flex-column m-auto">
+                                <div class="stats-small__data text-center">
+                                    <h4 class="count text-white">PDF</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End Users Stats -->
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
