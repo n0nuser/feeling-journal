@@ -6,11 +6,11 @@ urlpatterns = [
     #
     path("statistics/", views.StatisticsView.as_view(), name="statistics"),
     #
-    path("export/", views.ExportView.as_view(), name="export"),
-    path("export/journal/csv/", views.JournalCSV, name="journal_csv"),
-    path("export/journal/pdf/", views.JournalPDF, name="journal_pdf"),
-    path("export/thought/csv/", views.ThoughtCSV, name="thought_csv"),
-    path("export/thought/pdf/", views.ThoughtPDF, name="thought_pdf"),
+    path("save/", views.SaveView.as_view(), name="save"),
+    path("save/journal/csv/", views.JournalCSV, name="journal_csv"),
+    path("save/journal/pdf/", views.JournalPDF, name="journal_pdf"),
+    path("save/thought/csv/", views.ThoughtCSV, name="thought_csv"),
+    path("save/thought/pdf/", views.ThoughtPDF, name="thought_pdf"),
     #
     path("journal/", views.JournalListView.as_view(), name="journal_list"),
     path("journal/add/", views.JournalCreateView.as_view(), name="journal_add"),

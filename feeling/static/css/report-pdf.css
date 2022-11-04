@@ -15,7 +15,9 @@
 
 @page {
   font-family: Pacifico;
-  margin: 3cm;
+  width: 21cm;
+  height: 29.7cm;
+  margin: 27mm 16mm 27mm 16mm;
 }
 
 html {
@@ -84,8 +86,13 @@ th {
   padding-bottom: .25cm;
   text-transform: uppercase;
 }
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+  border-bottom: .2mm solid #a9a;
+}
 td {
-  padding-top: 7mm;
+  padding: .5rem!important;
 }
 /* td:last-of-type {
   color: #1ee494;

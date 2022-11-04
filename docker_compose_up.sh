@@ -8,5 +8,5 @@ echo "Docker-Compose Build\n"
 docker-compose build --progress=plain
 
 echo "Docker-Compose Deploy\n"
-# docker-compose up -d
-docker-compose up
+docker-compose up -d
+# docker-compose up

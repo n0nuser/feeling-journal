@@ -44,7 +44,7 @@ SERVER_HOST=YOUR-FQDN
 SERVER_PORT=80,443
 ```
 
-2. Create the SSL certificates in the Nginx folder named `cert.pem` and `key.pem` for HTTPS to work. You can use [Certbot](https://certbot.eff.org/instructions) (web app uses Nginx).
+2. Create the SSL certificates in the Nginx folder for HTTPS to work. You can use [Certbot](https://certbot.eff.org/instructions) (web app uses Nginx). Copy the `fullchain.pem` and the `privkey.pem` to the Nginx folder and remember to `chown` to the right user!
 
 3. Execute the `docker_compose_up.sh` file to deploy the containers.
 

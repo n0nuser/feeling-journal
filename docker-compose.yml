@@ -18,7 +18,7 @@ services:
           - web
 
   postgres:
-    image: postgres
+    image: postgres:15-alpine
     container_name: django-monitor-postgres
     restart: always
     volumes:
@@ -49,9 +49,6 @@ services:
       main:
         aliases:
           - nginx
-    deploy:
-      mode: replicated
-      replicas: 1
 
 volumes:
   postgres_data:

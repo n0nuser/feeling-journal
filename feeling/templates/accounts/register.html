@@ -31,6 +31,7 @@
                 {% else %}
                 
                 <form role="form" method="post" action="" class="pt-3">
+                  {% load crispy_forms_tags %}
                   {% csrf_token %}
                   {{ form | crispy }}
                   <button type="submit" name="register" class="btn btn-accent">Register</button>

@@ -19,7 +19,7 @@
   {% url 'journal_list' as journal_list %}
   {% url 'thought_list' as thought_list %}
   {% url 'statistics' as statistics %}
-  {% url 'export' as export %}
+  {% url 'save' as save %}
   <div class="nav-wrapper">
     <ul class="nav flex-column">
       <li class="nav-item">
@@ -51,9 +51,9 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link {% if request.path == export %}active{% endif %}" href="{% url 'export' %}">
+        <a class="nav-link {% if request.path == save %}active{% endif %}" href="{% url 'save' %}">
           <i class="material-icons">file_download</i>
-          <span>Export</span>
+          <span>Save</span>
         </a>
       </li>
     </ul>
