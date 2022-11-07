@@ -19,7 +19,7 @@ services:
 
   postgres:
     image: postgres:15-alpine
-    container_name: django-monitor-postgres
+    container_name: django-feeling-postgres
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
