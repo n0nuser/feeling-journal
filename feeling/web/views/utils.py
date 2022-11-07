@@ -32,6 +32,28 @@ def rangeDate(request, hours: int = None, days: int = None, weeks: int = None):
     return date_from, date_to
 
 
+def filter_date_by(request):
+    date_by = request.GET.get("date") or None
+    times = {"week": 7, "midmonth": 15, "month": 30, "year": 365}
+    date_to = date_from = None
+    if date_by in times:
+        date_to = datetime.now().date()
+        date_from = date_to - timedelta(days=times[date_by])
+
+    return date_to, date_from
+
+
+def filter_by_model(request, request_name_value, model, fk, q):
+    filter_field = request.GET.get(request_name_value) or None
+    if filter_field == 0:
+        return q
+    model = model.objects.filter(id=filter_field).first()
+    if filter_field and model:
+        args = {fk: model}
+        q = q.filter(**args)
+    return q
+
+
 def get_model_date_filled(fields: list = None, date_field_index: int = 0, model=None, user=None) -> list:
     if fields is None:
         fields = []

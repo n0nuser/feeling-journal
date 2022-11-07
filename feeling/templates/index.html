@@ -10,12 +10,16 @@
 <div class="main-content-container container-fluid px-4">
     <div class="jumbotron jumbotron-fluid mt-3">
         <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
-        <p class="lead">This is a journal where you can write how you feel and keep track of your feelings.</p>
+        <p class="lead">This is a journal where you can write how you feel and keep track of your feelings and your habits.</p>
         <hr class="my-4">
         <p>You can start by adding a journal entry or some thought.</p>
         <p class="lead">
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_add' %}" role="button">Journal</a>
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'thought_add' %}" role="button">Thought</a>
+            <a class="btn btn-primary btn-lg mb-2" href="{% url 'habit_add' %}" role="button">Habit</a>
+            <a class="btn btn-primary btn-lg mb-2" href="{% url 'cue_add' %}" role="button">Cue</a>
+            <a class="btn btn-primary btn-lg mb-2" href="{% url 'routine_add' %}" role="button">Routine</a>
+            <a class="btn btn-primary btn-lg mb-2" href="{% url 'reward_add' %}" role="button">Reward</a>
         </p>
     </div>
 </div>

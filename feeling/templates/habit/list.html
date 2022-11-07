@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Thought {% endblock %}
+{% block title %} {{ page_title }} {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -12,16 +12,18 @@
     <div class="page-header row no-gutters py-4">
         <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
             <span class="text-uppercase page-subtitle">Overview</span>
-            <h3 class="page-title">Thought entries</h3>
+            <h3 class="page-title">{{ page_title }}</h3>
         </div>
     </div>
     <!-- End Page Header -->
 
+    {% if allow_date_filter or cue or routine or reward %}
     <form action="" method="get">
         <div class="row">
+            {% if allow_date_filter %}
             <div class="col-2">
                 <div id="div_date" class="form-group">
-                    <label for="date" class="">
+                    <label for="date">
                         Filter by Period of Time
                     </label>
                     <div>
@@ -35,7 +37,62 @@
                     </div>
                 </div>
             </div>
-
+            {% endif %}
+            
+            {% if cue %}
+            <div class="col-2">
+                <div id="div_cue" class="form-group">
+                    <label for="cue">
+                        Filter by Cue
+                    </label>
+                    <div>
+                        <select name="cue" class="form-control" id="cue">
+                            <option value="0" selected="">All</option>
+                            {% for c in cue %}
+                            <option value="{{ c.id }}">{{ c.trigger }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if routine %}
+            <div class="col-2">
+                <div id="div_routine" class="form-group">
+                    <label for="routine">
+                        Filter by Routine
+                    </label>
+                    <div>
+                        <select name="routine" class="form-control" id="routine">
+                            <option value="0" selected="">All</option>
+                            {% for r in routine %}
+                            <option value="{{ r.id }}">{{ r.response }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if reward %}
+            <div class="col-2">
+                <div id="div_reward" class="form-group">
+                    <label for="reward">
+                        Filter by Reward
+                    </label>
+                    <div>
+                        <select name="reward" class="form-control" id="reward">
+                            <option value="0" selected="">All</option>
+                            {% for r in reward %}
+                            <option value="{{ r.id }}">{{ r.reward }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    
             <div class="col">
                 <div class="form-group">
                     <label for="status">&nbsp;</label>
@@ -46,6 +103,7 @@
             </div>
         </div>
     </form>
+    {% endif %}
 
     <!-- Default Light Table -->
     <div class="row">
@@ -54,7 +112,7 @@
                 <div class="border-bottom">
                     <div class="row">
                         <div class="col d-flex flex-row m-2">
-                            <a href="{% url 'thought_add' %}"><button type="button" class="btn btn-primary">Add Entry</button></a>
+                            <a href="{% url create_url %}"><button type="button" class="btn btn-primary">Add Entry</button></a>
                             <form method="get" class="ml-2">
                                 <input name="q" class="form-control" type="text" placeholder="Search...">
                             </form>
@@ -70,40 +128,30 @@
                         <table class="table table-sm mb-0 table-hover">
                             <thead class="bg-light">
                                 <tr>
-                                    <th scope="col" class="border-0">Created At</th>
-                                    <th scope="col" class="border-0">Associated Journal</th>
-                                    <th scope="col" class="border-0" colspan="3">Thought</th>
+                                    {% for column in columns %}
+                                    <th scope="col" class="border-0">{{ column }}</th>
+                                    {% endfor %}
                                     <th scope="col" class="border-0" colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Item -->
                                 {% if page_obj is not True %}
-                                {% for thought in page_obj %}
+                                {% for object in page_obj %}
                                 <tr>
-                                    {% if thought.created_at %}
-                                    <td><span class="font-weight-normal">{{ thought.created_at|date:"d/m/Y H:i:s" }}</span></td>
+                                    {% for field in object_fields %}
+                                    {% load tags %}
+                                    {% if object|get_obj_attr:field %}
+                                    <td><span class="font-weight-normal">{{ object|get_obj_attr:field|date_or_string }}</span></td>
                                     {% else %}
                                     <td><span class="font-weight-normal"></span></td>
                                     {% endif %}
-
-                                    {% if thought.journal %}
-                                    <td><span class="font-weight-normal">{{ thought.journal.situation_emotion|truncatechars:50 }}</span></td>
-                                    {% else %}
-                                    <td><span class="font-weight-normal"></span></td>
-                                    {% endif %}
-
-                                    {% if thought.thought %}
-                                    <td><span class="font-weight-normal" colspan="3">{{ thought.thought }}</span></td>
-                                    {% else %}
-                                    <td><span class="font-weight-normal" colspan="3"></span></td>
-                                    {% endif %}
-
+                                    {% endfor %}
                                     <td>
-                                        <a href="{% url 'thought_edit' thought.id %}"><button type="button" class="mb-2 btn btn-sm btn-primary mr-2">Edit</button></a>
+                                        <a href="{% url update_url object.id %}"><button type="button" class="mb-2 btn btn-sm btn-primary mr-2">Edit</button></a>
                                     </td>
                                     <td>
-                                        <a href="{% url 'thought_del' thought.id %}"><button type="button" class="mb-2 btn btn-sm btn-danger mr-2">Delete</button></a>
+                                        <a href="{% url delete_url object.id %}"><button type="button" class="mb-2 btn btn-sm btn-danger mr-2">Delete</button></a>
                                     </td>
                                 </tr>
                                 {% endfor %}

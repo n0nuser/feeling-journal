@@ -4,7 +4,8 @@
     <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
       <a class="navbar-brand w-100 mr-0" target="_blank" href="/" style="line-height: 25px;">
         <div class="d-table m-auto">
-          <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 120px;"
+          <!-- Compute color filter for SVG: https://codepen.io/sosuke/pen/Pjoqqp -->
+          <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 40px; filter: invert(30%) sepia(93%) saturate(2307%) hue-rotate(199deg) brightness(101%) contrast(110%);"
             src="{% static 'img/icon.svg' %}" alt="Feeling Journal">
         </div>
       </a>
@@ -18,13 +19,17 @@
   {% url 'home' as home %}
   {% url 'journal_list' as journal_list %}
   {% url 'thought_list' as thought_list %}
+  {% url 'habit_list' as habit_list %}
+  {% url 'cue_list' as cue_list %}
+  {% url 'routine_list' as routine_list %}
+  {% url 'reward_list' as reward_list %}
   {% url 'statistics' as statistics %}
   {% url 'save' as save %}
   <div class="nav-wrapper">
     <ul class="nav flex-column">
       <li class="nav-item">
         <a class="nav-link {% if request.path == home %}active{% endif %}" href="{% url 'home' %}">
-          <i class="material-icons">home</i>
+          <i class="material-icons">psychology_alt</i>
           <span>Dashboard</span>
         </a>
       </li>
@@ -40,6 +45,34 @@
         <a class="nav-link {% if request.path == thought_list %}active{% endif %}" href="{% url 'thought_list' %}">
           <i class="material-icons">question_mark</i>
           <span>Thought</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == habit_list %}active{% endif %}" href="{% url 'habit_list' %}">
+          <i class="material-icons">cached</i>
+          <span>Habit</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == cue_list %}active{% endif %}" href="{% url 'cue_list' %}">
+          <i class="material-icons">quiz</i>
+          <span>Cue</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == routine_list %}active{% endif %}" href="{% url 'routine_list' %}">
+          <i class="material-icons">follow_the_signs</i>
+          <span>Routine</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == reward_list %}active{% endif %}" href="{% url 'reward_list' %}">
+          <i class="material-icons">sentiment_very_satisfied</i>
+          <span>Reward</span>
         </a>
       </li>
 

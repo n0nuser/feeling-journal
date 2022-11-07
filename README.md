@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-# Monitor
+# Feeling Journal
 
 Feeling Journal - Web App to register your thoughts and feelings!
 
@@ -28,7 +28,7 @@ Feeling Journal - Web App to register your thoughts and feelings!
 
 ```env
 ALLOWED_HOSTS=127.0.0.1,YOUR-FQDN
-DEBUG=True
+DEBUG=False
 DJANGO_SUPERUSER_EMAIL=account@gmail.com
 DJANGO_SUPERUSER_PASSWORD=MY-USERNAME
 DJANGO_SUPERUSER_USERNAME=MY-PASSWORD
@@ -44,7 +44,7 @@ SERVER_HOST=YOUR-FQDN
 SERVER_PORT=80,443
 ```
 
-2. Create the SSL certificates in the Nginx folder for HTTPS to work. You can use [Certbot](https://certbot.eff.org/instructions) (web app uses Nginx). Copy the `fullchain.pem` and the `privkey.pem` to the Nginx folder and remember to `chown` to the right user!
+2. Create the SSL certificates in the Nginx folder for HTTPS to work. You can use [Certbot](https://certbot.eff.org/instructions) (web app uses Nginx). Copy the `fullchain.pem` and the `privkey.pem` to the Nginx folder and remember to `chown` to your user!
 
 3. Execute the `docker_compose_up.sh` file to deploy the containers.
 

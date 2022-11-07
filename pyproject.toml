@@ -27,11 +27,15 @@ django-tempus-dominus = "^5.1.2.17"
 django-debug-toolbar = "^3.7.0"
 weasyprint = "^57.0"
 psycopg2-binary = "^2.9.5"
+factory-boy = "^3.2.1"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^22.3.0", allow-prereleases = true}
 pre-commit = "^2.19.0"
 flake8 = "^4.0.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
 
 [tool.black]
 line-length = 119

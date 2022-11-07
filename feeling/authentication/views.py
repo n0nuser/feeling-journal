@@ -1,8 +1,11 @@
 from authentication.forms import SignUpForm
-from django.contrib import messages
-from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+    PasswordChangeView,
+)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -13,10 +16,10 @@ from authentication import models, forms
 
 
 class SignUpView(SuccessMessageMixin, CreateView):
-  template_name = 'accounts/register.html'
-  success_url = reverse_lazy('login')
-  form_class = SignUpForm
-  success_message = "Your profile was created successfully"
+    template_name = "accounts/register.html"
+    success_url = reverse_lazy("login")
+    form_class = SignUpForm
+    success_message = "Your profile was created successfully"
 
 
 class ProfileTemplateView(TemplateView):
@@ -41,7 +44,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy("login")
 
 
-class PasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
+class ResetPasswordConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
     template_name = "accounts/password_reset_confirm.html"
     success_message = "Your password has been reset. You can now log in."
     success_url = reverse_lazy("login")
@@ -58,6 +61,12 @@ class UpdateProfile(UpdateView):
     model = models.CustomUser
     form_class = forms.CustomUserForm
     template_name = "common/edit.html"
+    success_url = reverse_lazy("profile")
+
+
+@method_decorator(login_required, name="dispatch")
+class PasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    template_name = "accounts/change_password.html"
     success_url = reverse_lazy("profile")
 
 

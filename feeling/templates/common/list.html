@@ -1,0 +1,92 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="main-content-container container-fluid px-4">
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">Overview</span>
+            <h3 class="page-title">{{ page_title }}</h3>
+        </div>
+    </div>
+    <!-- End Page Header -->
+
+    {% if allow_date_filter %}
+    {% include 'includes/date_filter.html' %}
+    {% endif %}
+
+    <!-- Default Light Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card card-small mb-4">
+                <div class="border-bottom">
+                    <div class="row">
+                        <div class="col d-flex flex-row m-2">
+                            <a href="{% url create_url %}"><button type="button" class="btn btn-primary">Add Entry</button></a>
+                            <form method="get" class="ml-2">
+                                <input name="q" class="form-control" type="text" placeholder="Search...">
+                            </form>
+                        </div>
+                        <div class="col">
+                            {% include 'includes/dropdown_pagination.html' %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-0 pb-3 text-center">
+                    <div class="table-responsive scrollbar">
+                        <table class="table table-sm mb-0 table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    {% for column in columns %}
+                                    <th scope="col" class="border-0">{{ column }}</th>
+                                    {% endfor %}
+                                    <th scope="col" class="border-0" colspan="2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Item -->
+                                {% if page_obj is not True %}
+                                {% for object in page_obj %}
+                                <tr>
+                                    {% for field in object_fields %}
+                                    {% load tags %}
+                                    {% if object|get_obj_attr:field %}
+                                    <td><span class="font-weight-normal">{{ object|get_obj_attr:field|date_or_string }}</span></td>
+                                    {% else %}
+                                    <td><span class="font-weight-normal"></span></td>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        <a href="{% url update_url object.id %}"><button type="button" class="mb-2 btn btn-sm btn-primary mr-2">Edit</button></a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url delete_url object.id %}"><button type="button" class="mb-2 btn btn-sm btn-danger mr-2">Delete</button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Default Light Table -->
+
+    {% include 'includes/pagination.html' %}
+
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
