@@ -45,7 +45,7 @@ urlpatterns = [
     path("routine/", views.RoutineListView.as_view(), name="routine_list"),
     path("routine/add/", views.RoutineCreateView.as_view(), name="routine_create"),
     path("routine/edit/<pk>", views.RoutineUpdateView.as_view(), name="routine_update"),
-    path("routine/del/<pk>", views.RoutineDeleteView.as_view(), name="routinet_delete"),
+    path("routine/del/<pk>", views.RoutineDeleteView.as_view(), name="routine_delete"),
     #
     path("reward/", views.RewardListView.as_view(), name="reward_list"),
     path("reward/add/", views.RewardCreateView.as_view(), name="reward_create"),

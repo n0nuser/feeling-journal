@@ -7,21 +7,79 @@
 
 {% block content %}
 
-<div class="main-content-container container-fluid px-4">
-    <div class="jumbotron jumbotron-fluid mt-3">
+<div class="px-4">
+    <div class="jumbotron jumbotron-fluid mt-3 p-4">
         <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
         <p class="lead">This is a journal where you can write how you feel and keep track of your feelings and your habits.</p>
         <hr class="my-4">
         <p>You can start by adding a journal entry or some thought.</p>
-        <p class="lead">
+        <div class="lead">
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_create' %}" role="button">Journal</a>
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'thought_create' %}" role="button">Thought</a>
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'habit_create' %}" role="button">Habit</a>
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'cue_create' %}" role="button">Cue</a>
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'routine_create' %}" role="button">Routine</a>
             <a class="btn btn-primary btn-lg mb-2" href="{% url 'reward_create' %}" role="button">Reward</a>
-        </p>
+        </div>
     </div>
+</div>
+
+<div class="row px-4">
+    <!-- Users Stats -->
+    <div class="col mb-3">
+        <div class="card card-small">
+            <div class="card-header border-bottom">
+                <h4 class="m-0">How many days since last entry</h4>
+            </div>
+            <div class="card-body pt-0">
+                <div class="row mt-3">
+                    <div class="col-lg col-md-6 col-sm-6 mb-2">
+                        <div class="stats-small stats-small--1">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">edit_note</i> Journal
+                                        </span>
+                                        <h4 class="count my-3">{{ dates.journal|timesince }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg col-md-6 col-sm-6 mb-2">
+                        <div class="stats-small stats-small--1">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">question_mark</i> Thought
+                                        </span>
+                                        <h4 class="count my-3">{{ dates.thought|timesince }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg col-md-6 col-sm-6 mb-2">
+                        <div class="stats-small stats-small--1">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">cached</i> Habit
+                                        </span>
+                                        <h4 class="count my-3">{{ dates.habit|timesince }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Users Stats -->
 </div>
 
 
