@@ -78,8 +78,12 @@ def PDF(
     model=None,
     user=None,
     template_html: str = None,
+    is_date_filled: bool = False,
 ) -> HttpResponse:
-    context = {"model": get_model_date_filled(fields, date_field_index, model, user)}
+    if is_date_filled:
+        context = {"model": get_model_date_filled(fields, date_field_index, model, user)}
+    else:
+        context = {"model": list(model.objects.filter(user=user).values_list(*fields))}
     date_now = datetime.now().strftime("%Y-%m-%d--%H-%M-%S")
 
     font_config = FontConfiguration()  # Install fonts in the system

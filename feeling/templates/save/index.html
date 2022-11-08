@@ -17,64 +17,225 @@
     <!-- End Page Header -->
 
     <div class="card mt-3">
-        <h4 class="m-3">Journal</h4>
-        <div class="row mx-1">
-            <div class="col-lg col-md-6 col-sm-6">
-                <a href="{% url 'journal_csv' %}" target="_blank" role="button">
-                    <div class="stats-small--1 mb-3">
-                        <div class="p-3 d-flex btn btn-primary">
-                            <div class="d-flex flex-column m-auto">
-                                <div class="stats-small__data text-center">
-                                    <h4 class="count text-white">CSV</h4>
+        <a class="btn btn-primary" data-toggle="collapse" href="#JournalCollapse" role="button" aria-expanded="false" aria-controls="JournalCollapse">
+            <h4 class="p-2 text-white">Journal</h4>
+        </a>
+        <div class="collapse" id="JournalCollapse">
+            <div class="card card-body p-3">
+                <div class="row mx-1">
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'journal_csv' %}" target="_blank" role="button">
+                            <div class="stats-small--1">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">CSV</h4>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <div class="col-lg col-md-6 col-sm-6">
-                <a href="{% url 'journal_pdf' %}" target="_blank" role="button">
-                    <div class="stats-small--1 mb-3">
-                        <div class="p-3 d-flex btn btn-primary">
-                            <div class="d-flex flex-column m-auto">
-                                <div class="stats-small__data text-center">
-                                    <h4 class="count text-white">PDF</h4>
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'journal_pdf' %}" target="_blank" role="button">
+                            <div class="stats-small--1">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">PDF</h4>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card my-3">
-        <h4 class="m-3">Thoughts</h4>
-        <div class="row mx-1">
-            <div class="col-lg col-md-6 col-sm-6">
-                <a href="{% url 'thought_csv' %}" target="_blank" role="button">
-                    <div class="stats-small--1 mb-3">
-                        <div class="p-3 d-flex btn btn-primary">
-                            <div class="d-flex flex-column m-auto">
-                                <div class="stats-small__data text-center">
-                                    <h4 class="count text-white">CSV</h4>
+
+    <div class="card mt-3">
+        <a class="btn btn-primary" data-toggle="collapse" href="#ThoughtCollapse" role="button" aria-expanded="false" aria-controls="ThoughtCollapse">
+            <h4 class="p-2 text-white">Thought</h4>
+        </a>
+        <div class="collapse" id="ThoughtCollapse">
+            <div class="card card-body p-3">
+                <div class="row mx-1">
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'thought_csv' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">CSV</h4>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'thought_pdf' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">PDF</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg col-md-6 col-sm-6">
-                <a href="{% url 'thought_pdf' %}" target="_blank" role="button">
-                    <div class="stats-small--1 mb-3">
-                        <div class="p-3 d-flex btn btn-primary">
-                            <div class="d-flex flex-column m-auto">
-                                <div class="stats-small__data text-center">
-                                    <h4 class="count text-white">PDF</h4>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <a class="btn btn-primary" data-toggle="collapse" href="#HabitCollapse" role="button" aria-expanded="false" aria-controls="HabitCollapse">
+            <h4 class="p-2 text-white">Habit</h4>
+        </a>
+        <div class="collapse" id="HabitCollapse">
+            <div class="card card-body p-3">
+                <div class="row mx-1">
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'habit_csv' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">CSV</h4>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'habit_pdf' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">PDF</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <a class="btn btn-primary" data-toggle="collapse" href="#CueCollapse" role="button" aria-expanded="false" aria-controls="CueCollapse">
+            <h4 class="p-2 text-white">Cue</h4>
+        </a>
+        <div class="collapse" id="CueCollapse">
+            <div class="card card-body p-3">
+                <div class="row mx-1">
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'cue_csv' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">CSV</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'cue_pdf' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">PDF</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <a class="btn btn-primary" data-toggle="collapse" href="#RoutineCollapse" role="button" aria-expanded="false" aria-controls="RoutineCollapse">
+            <h4 class="p-2 text-white">Routine</h4>
+        </a>
+        <div class="collapse" id="RoutineCollapse">
+            <div class="card card-body p-3">
+                <div class="row mx-1">
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'routine_csv' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">CSV</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'routine_pdf' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">PDF</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <a class="btn btn-primary" data-toggle="collapse" href="#RewardCollapse" role="button" aria-expanded="false" aria-controls="RewardCollapse">
+            <h4 class="p-2 text-white">Reward</h4>
+        </a>
+        <div class="collapse" id="RewardCollapse">
+            <div class="card card-body p-3">
+                <div class="row mx-1">
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'reward_csv' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">CSV</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg col-md-6 col-sm-6">
+                        <a href="{% url 'reward_pdf' %}" target="_blank" role="button">
+                            <div class="stats-small--1 mb-3">
+                                <div class="p-3 m-2 d-flex btn btn-primary">
+                                    <div class="d-flex flex-column m-auto">
+                                        <div class="stats-small__data text-center">
+                                            <h4 class="count text-white">PDF</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

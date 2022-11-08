@@ -1,4 +1,0 @@
-journal.id | journal.ocurred_at | journal.number_of_times | journal.situation_emotion | journal.afterwards_feeling
-{% for entry in journal %}
-{{ entry.id }}|{{ entry.ocurred_at }}|{{ entry.number_of_times }}|{{ entry.situation_emotion }}|{{ entry.afterwards_feeling }}
-{% endfor %}
