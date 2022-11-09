@@ -39,19 +39,21 @@ class StatisticsView(TemplateView):
             first_date: datetime = journal_filled[0][date_field]  # first entry date
             last_date: datetime = journal_filled[-1][date_field]  # last entry date
             for i in range((last_date - first_date).days + 1):
-                day = (first_date + timedelta(days=i)).replace(hour=0, minute=0, second=0, microsecond=0)
+                day = first_date + timedelta(days=i)
+                day_zero = day.replace(hour=0, minute=0, second=0, microsecond=0)
                 if all(
-                    day != (entry[date_field]).replace(hour=0, minute=0, second=0, microsecond=0)
+                    day_zero != (entry[date_field]).replace(hour=0, minute=0, second=0, microsecond=0)
                     for entry in journal_filled
                 ):
                     journal_filled.append([day, 0])
             journal_filled.sort(key=lambda x: x[date_field])  # Sort by date
-            context["journal_dates"] = [entry[date_field].strftime("%Y-%m-%d") for entry in journal_filled]
+            js_datetime:str = lambda x: x.strftime("%Y-%m-%d %H:%M:%S")
+            context["journal_dates"] = [js_datetime(entry[date_field]) for entry in journal_filled]
             context["journal_values"] = [entry[1] for entry in journal_filled]
 
             # https://stackoverflow.com/a/40921159
             context["records_per_day"] = list(
-                journal.annotate(weekday=ExtractWeekDay("ocurred_at"))
+                journal.filter().annotate(weekday=ExtractWeekDay("ocurred_at"))
                 .values("weekday")
                 .order_by("weekday")
                 .annotate(count=Sum("number_of_times"))

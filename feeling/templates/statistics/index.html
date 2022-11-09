@@ -33,8 +33,8 @@
                         </label>
                         <div>
                             <select name="date" class="form-control" id="date">
-                                <option value="all" selected="">All</option>
-                                <option value="week">One Week</option>
+                                <option value="all">All</option>
+                                <option value="week" selected="">One Week</option>
                                 <option value="midmonth">Two Weeks</option>
                                 <option value="month">One Month</option>
                                 <option value="year">One Year</option>
@@ -111,10 +111,15 @@
                     unit: 'day',
                 },
             },
-            //y: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value) {if (value % 1 === 0) {return value;} }
+                },
             //    min: 0,
             //    max: 100,
-            //}
+            },
         },
         plugins: {
             decimation: {
@@ -175,6 +180,22 @@
         records_day_x.push(d.weekday);
         records_day_y.push(d.count);
     });
+
+    const day_options = {
+        scales: {
+            x: {
+                type: 'category',
+                labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value) {if (value % 1 === 0) {return value;} }
+                }
+            },
+        },
+    }
     
     const records_day_data = {
         labels: records_day_x,
@@ -189,6 +210,7 @@
     const records_day_config = {
         type: 'line',
         data: records_day_data,
+        options: day_options
       };
     const RecordsDay_Chart = new Chart(
         document.getElementById('records_per_day').getContext('2d'),
@@ -204,6 +226,19 @@
         records_hour_x.push(d.hour);
         records_hour_y.push(d.count);
     });
+
+    const hour_options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value) {if (value % 1 === 0) {return value;} }
+                }
+            },
+        },
+    }
+
     const records_hour_data = {
         labels: records_hour_x,
         datasets: [{
@@ -218,6 +253,7 @@
     const records_hour_config = {
         type: 'line',
         data: records_hour_data,
+        options: hour_options
     };
 
     const RecordsHour_Chart = new Chart(

@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}{{ agent.name }}{% endblock %}
+{% block title %}Save Entries{% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -8,22 +8,7 @@
 {% block content %}
 
 <div class="main-content-container container-fluid px-4 overflow-auto">
-    {% if not journal and not thought and not habit and not cue and not thought and not routine and not reward %}
-        <div class="jumbotron jumbotron-fluid mt-3 p-4">
-            <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
-            <p class="lead">There isn't enought journal entries to save them!</p>
-            <hr class="my-4">
-            <p>You can start by adding an entry</p>
-            <div class="lead">
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_create' %}" role="button">Journal</a>
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'thought_create' %}" role="button">Thought</a>
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'habit_create' %}" role="button">Habit</a>
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'cue_create' %}" role="button">Cue</a>
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'routine_create' %}" role="button">Routine</a>
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'reward_create' %}" role="button">Reward</a>
-            </div>
-        </div>
-    {% else %}
+    {% if journal or thought or habit or cue or routine or reward %}
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -271,6 +256,21 @@
             </div>
         </div>
         {% endif %}
+    {% else %}
+        <div class="jumbotron jumbotron-fluid mt-3 p-4">
+            <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
+            <p class="lead">There isn't enought journal entries to save them!</p>
+            <hr class="my-4">
+            <p>You can start by adding an entry</p>
+            <div class="lead">
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_create' %}" role="button">Journal</a>
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'thought_create' %}" role="button">Thought</a>
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'habit_create' %}" role="button">Habit</a>
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'cue_create' %}" role="button">Cue</a>
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'routine_create' %}" role="button">Routine</a>
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'reward_create' %}" role="button">Reward</a>
+            </div>
+        </div>
     {% endif %}
 </div>
 

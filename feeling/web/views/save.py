@@ -18,7 +18,7 @@ class SaveView(TemplateView):
         context["cue"] = Cue.objects.exists()
         context["routine"] = Routine.objects.exists()
         context["reward"] = Reward.objects.exists()
-
+        return context
 
 @login_required
 def JournalCSV(request):
