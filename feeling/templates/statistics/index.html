@@ -15,8 +15,8 @@
 
     <form action="" method="get">
         <div class="row">
-            <div class="col-2">
-                <div id="div_date" class="form-group">
+            <div class="col-md-auto">
+                <div id="date" class="form-group">
                     <label for="date" class="">
                         Filter by Period of Time
                     </label>
@@ -32,9 +32,9 @@
                 </div>
             </div>
 
-            <div class="col-2">
+            <div class="col-md-auto">
                 <div class="form-group">
-                    <label for="status">&nbsp;</label>
+                    <label>&nbsp;</label>
                     <div>
                         <button type="submit" class="btn btn-accent">Apply Filter</button>
                     </div>
@@ -44,38 +44,32 @@
     </form>
     
     <div class="row">
-        <!-- Users Stats -->
         <div class="col mb-4">
             <div class="card card-small">
                 <div class="card-header border-bottom">
-                    <h6 class="m-0">Graphics</h6>
+                    <h6 class="m-0">Charts</h6>
                 </div>
                 <div class="card-body pt-0">
-                    <div class="container-fluid">
-                        {% if journal_dates %}
-                        <div class="row">
-                            <div id="journal_entries" style="width:100% !important;height:300;"></div>
+                    <div class="container">
+                        <div class="row py-3">
+                            <div class="col">
+                                <canvas style="max-width: 100% !important;" id="journal_entries"></canvas>
+                            </div>
                         </div>
-                        {% endif %}
-                        
-                        {% if records_per_day %}
-                        <div class="row">
-                            <div id="records_per_day" style="width:100% !important;height:300;"></div>
+                        <div class="row py-3">
+                            <div class="col-sm">
+                                <canvas style="max-width: 100% !important;" id="records_per_day"></canvas>
+                            </div>
+                            <div class="col-sm">
+                                <canvas style="max-width: 100% !important;" id="records_per_hour"></canvas>
+                            </div>
                         </div>
-                        {% endif %}
-                        
-                        {% if records_per_hour %}
-                        <div class="row">
-                            <div id="records_per_hour" style="width:100% !important;height:300;"></div>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Users Stats -->
     </div>
-
 </div>
 {% endblock content %}
 
@@ -83,58 +77,74 @@
 {% block javascripts %}
 {% if records_per_day or records_per_hour %}
 <script>
-    var config = {responsive: true}
-
     {% if journal_dates %}
+    // Plot_Options
+    const Options = {
+        responsive: true,
+        legend: {
+            position: 'top'
+        },
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day',
+                },
+            },
+            //y: {
+            //    min: 0,
+            //    max: 100,
+            //}
+        },
+        plugins: {
+            decimation: {
+                enabled: true,
+                algorithm: 'lttb',
+            }
+        },
+    };
     const journal_dates_untreated = {{ journal_dates | safe }};
     var journal_dates = [];
     journal_dates_untreated.forEach((d) => {
         journal_dates.push(new Date(d));
     });
-
-    var layout = {
-        title: 'Number of times over time',
-        xaxis: {
-            autorange: true,
-            range: [journal_dates.at(0), journal_dates.at(-1)],
-            rangeslider: {range: [journal_dates.at(0), journal_dates.at(-1)]},
-            rangeselector: {buttons: [
-                {
-                    count: 7,
-                    name: '7d',
-                    step: 'day',
-                    stepmode: 'backward'
-                },
-                {
-                    count: 14,
-                    name: '14d',
-                    step: 'day',
-                    stepmode: 'backward'
-                },
-                {step: 'all'}
-                ]},
-            type: 'date'
-        },
-        yaxis: {
-            autorange: true,
-            rangemode: "tozero",
-            tickmode: "linear",
-            type: 'linear',
-        }
-    };
-    
     const journal_values = {{ journal_values | safe }};
 
     const no_of_times_dataset = {
-        name: 'Number of Times',
-        y: journal_values,
-        x: journal_dates,
-        type: "scatter",
-        mode: "lines",
-        line: {color: '#007bff'}
+        label: 'Number of Times',
+        fill: 'start',
+        data: journal_values,
+        borderColor: 'rgba(0, 123, 255, 1)',
+        tension: 0.1
     };
+
     const JournalEntries_Dataset = [no_of_times_dataset, ];
-    Plotly.newPlot('journal_entries', JournalEntries_Dataset, layout, config);
+    const JournalEntries_Data = {
+        labels: journal_dates,
+        datasets: JournalEntries_Dataset
+    };
+
+    const JournalEntries_Config = {
+        type: 'line',
+        data: JournalEntries_Data,
+        options: Options
+    };
+
+    const JournalEntries_Chart = new Chart(
+        document.getElementById('journal_entries').getContext('2d'),
+        JournalEntries_Config
+    );
+    {% endif %}
+
+    {% if records_per_day or records_per_hour %}
+    // Bar_Options
+    const Bar_Options = {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
     {% endif %}
 
     {% if records_per_day %}
@@ -145,43 +155,25 @@
         records_day_x.push(d.weekday);
         records_day_y.push(d.count);
     });
-
-    var records_per_day = {
-        x: records_day_x,
-        y: records_day_y,
-        mode: 'lines+markers',
-        marker: {
-          color: '#007bff',
-          size: 8
-        },
-      
-        line: {
-          color: '#007bff',
-          width: 3
-        }
+    
+    const records_day_data = {
+        labels: records_day_x,
+        datasets: [{
+            label: 'Records per Day',
+            data: records_day_y,
+            fill: 'start',
+            borderColor: 'rgb(0, 123, 255)',
+            tension: 0.1
+        }]
+    };
+    const records_day_config = {
+        type: 'line',
+        data: records_day_data,
       };
-      
-      var records_per_day_data = [records_per_day];
-      
-      var layout = {
-        title: 'Nº of times by day (week)',
-        xaxis: {
-            title: 'Day (1 = Sunday)',
-            showgrid: false,
-            zeroline: false,
-            tickformat: ',d'
-          },
-          yaxis: {
-            title: 'Nº of records',
-            showline: false,
-            autorange: true,
-            rangemode: "tozero",
-            tickmode: "linear",
-            type: 'linear',
-        }
-      };
-      
-    Plotly.newPlot('records_per_day', records_per_day_data, layout, config);
+    const RecordsDay_Chart = new Chart(
+        document.getElementById('records_per_day').getContext('2d'),
+        records_day_config
+    );
     {% endif %}
 
     {% if records_per_hour %}
@@ -192,44 +184,27 @@
         records_hour_x.push(d.hour);
         records_hour_y.push(d.count);
     });
+    const records_hour_data = {
+        labels: records_hour_x,
+        datasets: [{
+            label: 'Records per Hour',
+            data: records_hour_y,
+            fill: 'start',
+            borderColor: 'rgb(0, 123, 255)',
+            tension: 0.1
+        }]
+    };
 
+    const records_hour_config = {
+        type: 'line',
+        data: records_hour_data,
+    };
 
-    var records_per_hour = {
-        x: records_hour_x,
-        y: records_hour_y,
-        mode: 'lines+markers',
-        marker: {
-          color: '#007bff',
-          size: 8
-        },
-
-        line: {
-          color: '#007bff',
-          width: 3,
-        }
-      };
+    const RecordsHour_Chart = new Chart(
+        document.getElementById('records_per_hour').getContext('2d'),
+        records_hour_config
+    );
       
-      var records_per_hour_data = [records_per_hour];
-      
-      var layout = {
-        title: 'Nº of times by hour',
-        xaxis: {
-            title: 'Hour',
-            showgrid: false,
-            zeroline: false,
-            tickformat: ',d'
-          },
-          yaxis: {
-            title: 'Nº of records',
-            showline: false,
-            autorange: true,
-            rangemode: "tozero",
-            tickmode: "linear",
-            type: 'linear',
-        }
-      };
-      
-    Plotly.newPlot('records_per_hour', records_per_hour_data, layout, config);
     {% endif %}
 </script>
 {% endif %}
