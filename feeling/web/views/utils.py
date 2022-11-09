@@ -75,11 +75,14 @@ def PDF(
     filename: str = None,
     fields: list = None,
     date_field_index: int = 0,
+    is_date_filled: bool = False,
     model=None,
     user=None,
     template_html: str = None,
-    is_date_filled: bool = False,
 ) -> HttpResponse:
+    if not model.objects.filter(user=user).exists():
+        return HttpResponse("No data available")
+
     if is_date_filled:
         context = {"model": get_model_date_filled(fields, date_field_index, model, user)}
     else:
@@ -98,7 +101,17 @@ def PDF(
     return response
 
 
-def CSV(filename: str = None, fields: list = None, date_field_index: int = 0, model=None, user=None) -> HttpResponse:
+def CSV(
+    filename: str = None,
+    fields: list = None,
+    date_field_index: int = 0,
+    is_date_filled: bool = False,
+    model=None,
+    user=None,
+) -> HttpResponse:
+    if not model.objects.filter(user=user).exists():
+        return HttpResponse("No data available")
+
     date_now = datetime.now().strftime("%Y-%m-%d--%H-%M-%S")
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(
@@ -107,6 +120,9 @@ def CSV(filename: str = None, fields: list = None, date_field_index: int = 0, mo
     )
     writer = csv.writer(response)
     writer.writerow(fields)  # Write header row
-    model_filled = get_model_date_filled(fields, date_field_index, model, user)
-    writer.writerows(model_filled)  # Write data rows
+    if is_date_filled:
+        model_altered = {"model": get_model_date_filled(fields, date_field_index, model, user)}
+    else:
+        model_altered = {"model": list(model.objects.filter(user=user).values_list(*fields))}
+    writer.writerows(model_altered)  # Write data rows
     return response

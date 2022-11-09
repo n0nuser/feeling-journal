@@ -4,78 +4,98 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-<div class="main-content-container container-fluid px-4">
-    <!-- Page Header -->
-    <div class="page-header row no-gutters py-4">
-        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-            <span class="text-uppercase page-subtitle">{% if origin_date %}From {{ origin_date|date:"d/m/Y" }}{% endif %} Until {{ actual_date|date:"d/m/Y" }}</span>
+<div class="main-content-container container-fluid px-4 overflow-auto">
+    {% if not records_per_day and not records_per_hour and not journal_dates %}
+        <div class="jumbotron jumbotron-fluid mt-3 p-4">
+            <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
+            <p class="lead">There isn't enought journal entries to make statistics!</p>
+            <hr class="my-4">
+            <p>You can start by adding a journal entry</p>
+            <div class="lead">
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_create' %}" role="button">Journal</a>
+            </div>
         </div>
-    </div>
-    <!-- End Page Header -->
+    {% else %}
+        <!-- Page Header -->
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <span class="text-uppercase page-subtitle">{% if origin_date %}From {{ origin_date|date:"d/m/Y" }}{% endif %} Until {{ actual_date|date:"d/m/Y" }}</span>
+            </div>
+        </div>
+        <!-- End Page Header -->
 
-    <form action="" method="get">
+        <form action="" method="get">
+            <div class="row">
+                <div class="col-md-auto">
+                    <div id="date" class="form-group">
+                        <label for="date" class="">
+                            Filter by Period of Time
+                        </label>
+                        <div>
+                            <select name="date" class="form-control" id="date">
+                                <option value="all" selected="">All</option>
+                                <option value="week">One Week</option>
+                                <option value="midmonth">Two Weeks</option>
+                                <option value="month">One Month</option>
+                                <option value="year">One Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-auto">
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <div>
+                            <button type="submit" class="btn btn-accent">Apply Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
         <div class="row">
-            <div class="col-md-auto">
-                <div id="date" class="form-group">
-                    <label for="date" class="">
-                        Filter by Period of Time
-                    </label>
-                    <div>
-                        <select name="date" class="form-control" id="date">
-                            <option value="all" selected="">All</option>
-                            <option value="week">One Week</option>
-                            <option value="midmonth">Two Weeks</option>
-                            <option value="month">One Month</option>
-                            <option value="year">One Year</option>
-                        </select>
+            <div class="col mb-4">
+                <div class="card card-small">
+                    <div class="card-header border-bottom">
+                        <h6 class="m-0">Charts</h6>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-md-auto">
-                <div class="form-group">
-                    <label>&nbsp;</label>
-                    <div>
-                        <button type="submit" class="btn btn-accent">Apply Filter</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-    
-    <div class="row">
-        <div class="col mb-4">
-            <div class="card card-small">
-                <div class="card-header border-bottom">
-                    <h6 class="m-0">Charts</h6>
-                </div>
-                <div class="card-body pt-0">
-                    <div class="container">
-                        <div class="row py-3">
-                            <div class="col">
-                                <canvas style="max-width: 100% !important;" id="journal_entries"></canvas>
+                    <div class="card-body pt-0">
+                        <div class="container">
+                            {% if journal_dates %}
+                            <div class="row py-3">
+                                <div class="col">
+                                    <canvas style="max-width: 100% !important;" id="journal_entries"></canvas>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row py-3">
-                            <div class="col-sm">
-                                <canvas style="max-width: 100% !important;" id="records_per_day"></canvas>
+                            {% endif %}
+                            {% if records_per_day or records_per_hour %}
+                            <div class="row py-3">
+                                {% if records_per_day %}
+                                <div class="col-sm">
+                                    <canvas style="max-width: 100% !important;" id="records_per_day"></canvas>
+                                </div>
+                                {% endif %}
+                                {% if records_per_hour %}
+                                <div class="col-sm">
+                                    <canvas style="max-width: 100% !important;" id="records_per_hour"></canvas>
+                                </div>
+                                {% endif %}
                             </div>
-                            <div class="col-sm">
-                                <canvas style="max-width: 100% !important;" id="records_per_hour"></canvas>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- End Users Stats -->
         </div>
-        <!-- End Users Stats -->
-    </div>
+    {% endif %}
 </div>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-{% if records_per_day or records_per_hour %}
+{% if records_per_day or records_per_hour or journal_dates %}
 <script>
     {% if journal_dates %}
     // Plot_Options

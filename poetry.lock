@@ -216,18 +216,6 @@ Django = ">=3.2"
 tablib = {version = ">=3.0.0", extras = ["html", "ods", "xls", "xlsx", "yaml"]}
 
 [[package]]
-name = "django-minify-html"
-version = "1.4.0"
-description = "Use minify-html, the extremely fast HTML + JS + CSS minifier, with Django."
-category = "main"
-optional = false
-python-versions = ">=3.8"
-
-[package.dependencies]
-Django = ">=3.2"
-minify-html = "*"
-
-[[package]]
 name = "django-tempus-dominus"
 version = "5.1.2.17"
 description = "A Django widget for the Tempus Dominus Bootstrap 4 DateTime picker."
@@ -391,14 +379,6 @@ name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
 category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "minify-html"
-version = "0.10.3"
-description = "Extremely fast and smart HTML + JS + CSS minifier"
-category = "main"
 optional = false
 python-versions = "*"
 
@@ -785,7 +765,7 @@ test = ["pytest"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "a6c6458aa7b418e2a3ce59eef25183a05509445e2b9872cdf00bb9b7dc1a245d"
+content-hash = "970f85a91f258061e3810be121dde03c338b43ba28f9cb3a1a5031113bab0540"
 
 [metadata.files]
 asgiref = [
@@ -1047,10 +1027,6 @@ django-import-export = [
     {file = "django-import-export-2.9.0.tar.gz", hash = "sha256:02ce3a8e191992fa7aa1d660877ac6764fa9e32a5ba6394293f2fc761a5bdd19"},
     {file = "django_import_export-2.9.0-py3-none-any.whl", hash = "sha256:126d32a4410c42b6e1bf060355bf45968f6fe427c3b7ed04c96873bd45d7549a"},
 ]
-django-minify-html = [
-    {file = "django-minify-html-1.4.0.tar.gz", hash = "sha256:f2acbd95a0c26714a1d9957f973743801facae3ae6635a507fd573cd7f5ce70d"},
-    {file = "django_minify_html-1.4.0-py3-none-any.whl", hash = "sha256:4957041eb622a27001d771485d72af2c69912ead44df463541a338d4e391c92e"},
-]
 django-tempus-dominus = [
     {file = "django-tempus-dominus-5.1.2.17.tar.gz", hash = "sha256:a254c4550287e8f4e958c5d8dd9e39eec0a15aaad7469ad182b46f7f888e97ec"},
     {file = "django_tempus_dominus-5.1.2.17-py3-none-any.whl", hash = "sha256:f449e0e4dfde3b312aa153b552f83aa80c7b58f980ee75ba82b0e9cf6c35ff3c"},
@@ -1101,25 +1077,6 @@ MarkupPy = [
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
-]
-minify-html = [
-    {file = "minify_html-0.10.3-cp310-cp310-macosx_10_7_x86_64.whl", hash = "sha256:a837ad8474be871a069b6cc15c6acc9e679f70c81d627f583dd94638416dec73"},
-    {file = "minify_html-0.10.3-cp310-cp310-manylinux_2_27_x86_64.whl", hash = "sha256:2cced1cdc1acfc11b4e74d4c68c693bf714f19f71133f2e0de001c08a116f93c"},
-    {file = "minify_html-0.10.3-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:30d9c427db1aebe5b25559c6dbfa653572e7a2af8fc7703d7c6bdabb41cc20e7"},
-    {file = "minify_html-0.10.3-cp310-none-win_amd64.whl", hash = "sha256:4173d4bcd722ffff2e4b535603c4bb122e5f859b3d7689282a5697696735ae2e"},
-    {file = "minify_html-0.10.3-cp311-cp311-macosx_10_7_x86_64.whl", hash = "sha256:7791e2c757b25775b776cbaa253b41d1d4b8c75906414032b25d8cbf9028c581"},
-    {file = "minify_html-0.10.3-cp311-cp311-manylinux_2_27_x86_64.whl", hash = "sha256:8b94b13998d4f91b9f2f31c67ae7d6e6cdd201a7c48a62622a82fb39f21e5d80"},
-    {file = "minify_html-0.10.3-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:9f446d5ccbd858a94f55b9ec02f90c1955bfd895db839384daac2e17e317c497"},
-    {file = "minify_html-0.10.3-cp311-none-win_amd64.whl", hash = "sha256:d2e12ab82cff60a334d277cabb5d841c5ca0a1858b2edfab726232de5691695e"},
-    {file = "minify_html-0.10.3-cp38-cp38-macosx_10_7_x86_64.whl", hash = "sha256:9657fc1c60b8b05a2e01b6a1942d202cf782aaae8299a2eae746734964a26535"},
-    {file = "minify_html-0.10.3-cp38-cp38-manylinux_2_27_x86_64.whl", hash = "sha256:ce1ce8bff3e8aae489f821d4c1ba62730142729e7f895cda048dbe38f3fd47d6"},
-    {file = "minify_html-0.10.3-cp38-cp38-manylinux_2_28_aarch64.whl", hash = "sha256:b1797b3a906c670d4d75eb5db732758e23adac507d6c91a2f53e439ef985348c"},
-    {file = "minify_html-0.10.3-cp38-none-win_amd64.whl", hash = "sha256:0194f41a544d7f53a4af8fddd0e17529e43405acb1784847688708ab7cc4ed3d"},
-    {file = "minify_html-0.10.3-cp39-cp39-macosx_10_7_x86_64.whl", hash = "sha256:141293cf8c2fdbab556c6c25b129bdd41226baabc31c6de83b61e7aaf676a8d5"},
-    {file = "minify_html-0.10.3-cp39-cp39-manylinux_2_27_x86_64.whl", hash = "sha256:63f095e79cab2774363156065a1e1664100b6665548965a517fb78d23885ec59"},
-    {file = "minify_html-0.10.3-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:922134f7829b26d3d35e53ba27625351cbb486cda3f19b4bd9d8d8a5b3237f0c"},
-    {file = "minify_html-0.10.3-cp39-none-win_amd64.whl", hash = "sha256:c537ae4105cc4138f5fb5c4b54c09b2a8bdc9894c97c2eacf7d6a35477f5b27b"},
-    {file = "minify_html-0.10.3.tar.gz", hash = "sha256:78dcbcad3cee62b346c69ca6fc28f1bb31dedfa2673c6f30154c7935238fdf2b"},
 ]
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
