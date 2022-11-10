@@ -31,6 +31,7 @@ def JournalPDF(request):
     fields = ["id", "ocurred_at", "number_of_times", "situation_emotion", "afterwards_feeling"]
     return PDF("journal", fields, 1, True, Journal, request.user, "journal/report-pdf.html")
 
+#######################################################################################################################
 
 @login_required
 def ThoughtCSV(request):
@@ -43,6 +44,7 @@ def ThoughtPDF(request):
     fields = ["id", "created_at", "journal", "thought"]
     return PDF("journal", fields, 1, True, Thought, request.user, "thought/report-pdf.html", True)
 
+#######################################################################################################################
 
 @login_required
 def CueCSV(request):
@@ -55,6 +57,7 @@ def CuePDF(request):
     fields = ["id", "trigger"]
     return PDF("cue", fields, 0, False, Cue, request.user, "cue/report-pdf.html")
 
+#######################################################################################################################
 
 @login_required
 def RoutineCSV(request):
@@ -67,6 +70,7 @@ def RoutinePDF(request):
     fields = ["id", "type", "response"]
     return PDF("routine", fields, 0, False, Routine, request.user, "routine/report-pdf.html")
 
+#######################################################################################################################
 
 @login_required
 def RewardCSV(request):
@@ -79,6 +83,7 @@ def RewardPDF(request):
     fields = ["id", "reward"]
     return PDF("reward", fields, 0, False, Reward, request.user, "reward/report-pdf.html")
 
+#######################################################################################################################
 
 @login_required
 def HabitCSV(request):

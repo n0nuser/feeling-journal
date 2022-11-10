@@ -120,8 +120,8 @@ def CSV(
     writer = csv.writer(response)
     writer.writerow(fields)  # Write header row
     if is_date_filled:
-        model_altered = {"model": get_model_date_filled(fields, date_field_index, model, user)}
+        model_altered = get_model_date_filled(fields, date_field_index, model, user)
     else:
-        model_altered = {"model": list(model.objects.filter(user=user).values_list(*fields))}
+        model_altered = list(model.objects.filter(user=user).values_list(*fields))
     writer.writerows(model_altered)  # Write data rows
     return response
