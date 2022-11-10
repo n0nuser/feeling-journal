@@ -5,55 +5,182 @@
 
 {% block content %}
 <div class="main-content-container container-fluid px-4 overflow-auto">
-    {% if not records_per_day and not records_per_hour and not journal_dates %}
-        <div class="jumbotron jumbotron-fluid mt-3 p-4">
-            <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
-            <p class="lead">There isn't enought journal entries to make statistics!</p>
-            <hr class="my-4">
-            <p>You can start by adding a journal entry</p>
-            <div class="lead">
-                <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_create' %}" role="button">Journal</a>
-            </div>
+    
+    <!-- Page Header -->
+    <div class="page-header row no-gutters py-4">
+        <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+            <span class="text-uppercase page-subtitle">{% if origin_date %}From {{ origin_date|date:"d/m/Y" }}{% endif %} Until {{ actual_date|date:"d/m/Y" }}</span>
         </div>
-    {% else %}
-        <!-- Page Header -->
-        <div class="page-header row no-gutters py-4">
-            <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <span class="text-uppercase page-subtitle">{% if origin_date %}From {{ origin_date|date:"d/m/Y" }}{% endif %} Until {{ actual_date|date:"d/m/Y" }}</span>
-            </div>
-        </div>
-        <!-- End Page Header -->
+    </div>
+    <!-- End Page Header -->
 
-        <form action="" method="get">
-            <div class="row">
-                <div class="col-md-auto">
-                    <div id="date" class="form-group">
-                        <label for="date" class="">
-                            Filter by Period of Time
-                        </label>
-                        <div>
-                            <select name="date" class="form-control" id="date">
-                                <option value="all">All</option>
-                                <option value="week" selected="">One Week</option>
-                                <option value="midmonth">Two Weeks</option>
-                                <option value="month">One Month</option>
-                                <option value="year">One Year</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-auto">
-                    <div class="form-group">
-                        <label>&nbsp;</label>
-                        <div>
-                            <button type="submit" class="btn btn-accent">Apply Filter</button>
-                        </div>
+    <form action="" method="get">
+        <div class="row">
+            <div class="col-md-auto">
+                <div id="date" class="form-group">
+                    <label for="date" class="">
+                        Filter by Period of Time
+                    </label>
+                    <div>
+                        <select name="date" class="form-control" id="date">
+                            <option value="all">All</option>
+                            <option value="week" selected="">One Week</option>
+                            <option value="midmonth">Two Weeks</option>
+                            <option value="month">One Month</option>
+                            <option value="year">One Year</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </form>
+
+            <div class="col-md-auto">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <div>
+                        <button type="submit" class="btn btn-accent">Apply Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if records_per_day or records_per_hour or journal_dates or summary %}
+        {% if summary %}
+        <!-- Day Summary -->
+        <h4 class="text-left">Day Summary - Mode</h4>
+        <div class="row">
+            {% load tags %}
+            {% if summary.journal %}
+            <div class="col mb-3">
+                <div class="card card-small">
+                    <div class="card-body pt-0">
+                        <div class="stats-small stats-small--1 mt-3">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">edit_note</i> Journal
+                                        </span>
+                                        <h4 class="count my-3">{{ summary.journal.weekday_mode.weekday|weekday }} with {{ summary.journal.weekday_mode.count }} times</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if summary.thought %}
+            <div class="col mb-3">
+                <div class="card card-small">
+                    <div class="card-body pt-0">
+                        <div class="stats-small stats-small--1 mt-3">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">question_mark</i> Thought
+                                        </span>
+                                        <h4 class="count my-3">{{ summary.thought.weekday_mode.weekday|weekday }} with {{ summary.thought.weekday_mode.count }} times</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if summary.habit %}
+            <div class="col mb-3">
+                <div class="card card-small">
+                    <div class="card-body pt-0">
+                        <div class="stats-small stats-small--1 mt-3">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">cached</i> Habit
+                                        </span>
+                                        <h4 class="count my-3">{{ summary.habit.weekday_mode.weekday|weekday }} with {{ summary.habit.weekday_mode.count }} times</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}                
+        </div>
+        <!-- End Day Summary -->
         
+        <!-- Hour Summary -->
+        <h4 class="text-left">Hour Summary - Mode</h4>
+        <div class="row">
+            {% load tags %}
+            {% if summary.journal %}
+            <div class="col mb-3">
+                <div class="card card-small">
+                    <div class="card-body pt-0">
+                        <div class="stats-small stats-small--1 mt-3">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">edit_note</i> Journal
+                                        </span>
+                                        <h4 class="count my-3">At {{ summary.journal.hour_mode.hour }}h with {{ summary.journal.hour_mode.count }} times</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if summary.thought %}
+            <div class="col mb-3">
+                <div class="card card-small">
+                    <div class="card-body pt-0">
+                        <div class="stats-small stats-small--1 mt-3">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">question_mark</i> Thought
+                                        </span>
+                                        <h4 class="count my-3">At {{ summary.thought.hour_mode.hour }}h with {{ summary.thought.hour_mode.count }} times</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if summary.habit %}
+            <div class="col mb-3">
+                <div class="card card-small">
+                    <div class="card-body pt-0">
+                        <div class="stats-small stats-small--1 mt-3">
+                            <div class="p-3 d-flex">
+                                <div class="d-flex flex-column m-auto">
+                                    <div class="stats-small__data text-center">
+                                        <span class="text-muted text-uppercase">
+                                            <i class="material-icons">cached</i> Habit
+                                        </span>
+                                        <h4 class="count my-3">At {{ summary.habit.hour_mode.hour }}h with {{ summary.habit.hour_mode.count }} times</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}                
+        </div>
+        <!-- End Hour Summary -->
+        {% endif %}
+
+        {% if records_per_day or records_per_hour or journal_dates %}
         <div class="row">
             <div class="col mb-4">
                 <div class="card card-small">
@@ -88,6 +215,17 @@
                 </div>
             </div>
             <!-- End Users Stats -->
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="jumbotron jumbotron-fluid mt-3 p-4">
+            <h1 class="display-4">Hello {{ request.user.first_name }}!</h1>
+            <p class="lead">There isn't enought journal entries in this period to make statistics!</p>
+            <hr class="my-4">
+            <p>You can start by adding a journal entry</p>
+            <div class="lead">
+                <a class="btn btn-primary btn-lg mb-2" href="{% url 'journal_create' %}" role="button">Journal</a>
+            </div>
         </div>
     {% endif %}
 </div>

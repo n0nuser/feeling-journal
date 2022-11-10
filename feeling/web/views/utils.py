@@ -39,7 +39,6 @@ def filter_date_by(request):
     if date_by in times:
         date_to = datetime.now().date()
         date_from = date_to - timedelta(days=times[date_by])
-
     return date_to, date_from
 
 

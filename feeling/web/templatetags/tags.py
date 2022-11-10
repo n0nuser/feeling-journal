@@ -14,6 +14,18 @@ def field_name_to_label(value):
 def typeof(value):
     return str(type(value))
 
+@register.filter()
+def weekday(value):
+    day = {
+        "1": "Sunday",
+        "2": "Monday",
+        "3": "Tuesday",
+        "4": "Wednesday",
+        "5": "Thursday",
+        "6": "Friday",
+        "7": "Saturday",
+    }
+    return day[str(value)]
 
 @register.filter()
 def date_or_string(value):
